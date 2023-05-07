@@ -1,0 +1,37 @@
+{% extends 'travel/layout.html' %}
+
+{% load static %}
+
+{% load bro %}
+
+{% block body %}
+    <div class="forms" style="display: flex; flex-direction: column; margin-top: 1rem;">
+        
+        <div style="display: flex; align-items: center; flex-direction: column; margin-bottom: 0.5rem; ">  
+        <h2 style="color: #3a91ed;;">Your Flight Has Been Confirmed!</h2>
+        <p>Your PNR Number: {{ pnr_number }}</p>
+        </div>      
+        {% for itinerary in flight.itineraries %}
+            {% for segment in itinerary.segments %}
+                <ul class="news" style="display: flex; flex-direction: column;">
+                    <li><p><span style="color: #b0b5b5;">From: </span>{{ segment.departure.iataCode }}</p></li>
+                    <li><p><span style="color: #b0b5b5;">To: </span>{{ segment.arrival.iataCode }}</p></li>
+                    <li><p><span style="color: #b0b5b5;">Duration: </span> {{ segment.duration|slice:"2:"|lower|bro }}</p></li>
+                    <li><p><span style="color: #b0b5b5;" >Airline: </span> {{ segment.airline|lower|title }}</p></li>
+                    <li><p><span style="color: #b0b5b5;">Aircraft: </span> {{ segment.plane|lower|title }}</p></li>
+                </ul>
+            {% endfor %}
+        {% endfor %}
+        
+        
+        <div class="new" style="display: flex; flex-direction: column; align-items: center;">
+        <p><span style="font-weight: bold;  ">Price:</span> ${{ flight.price.total }}</p>
+        <p><span style="font-weight: bold; ">Passenger Name:</span> {{ passenger_info.name }} {{ passenger_info.last_name }}</p>
+        <p><span style="font-weight: bold; ">Birthdate:</span> {{ passenger_info.date }}</p>
+        <p><span style="font-weight: bold;  ">Email: </span>{{ passenger_info.email }}</p>
+        <p><span style="font-weight: bold;">Phone:</span> {{ passenger_info.phone }}</p>
+        <p><span style="font-weight: bold; ">Nationality:</span> {{ passenger_info.nationality }}</p>
+        <p><span style="font-size: 1.2rem;">You can view your reservations in the booking part!</span></p>
+        </div>
+    </div>
+{% endblock %}

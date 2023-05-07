@@ -1,0 +1,37 @@
+{% extends "travel/layout.html" %}
+
+{% block body %}
+
+<div class="forms" style="margin-bottom: 0;">
+
+
+
+    <form action="{% url 'register' %}" method="post" id="register-form">
+        {% csrf_token %}
+
+        <h2 id="register">Register</h2>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <div class="form">
+            <input class="form-input" autofocus type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form">
+            <input class="form-input" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form">
+            <input class="form-input" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form">
+            <input class="form-input" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+        <input class="register-btn" type="submit" value="Register">
+        
+        <p class="already">Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
+    </form>
+
+</div>
+
+{% endblock %}

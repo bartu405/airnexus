@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>{% block title %}Search Flights{% endblock %}</title>
+        <link href="{% static 'travel/styles.css' %}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cardo:ital@1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" /> 
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav>
+            <ul class="ul-div">
+                <li>
+                    
+                    <a href="{% url 'index'  %}" id="title"><h1 style="margin: 0;"><p style="margin-right: 0.2rem; transform: rotate(-50deg); display: inline-block;">&#9992;</p>Airnexus</h1></a>
+                </li>
+
+                <li id="home-btn-div">
+                    <a href="{% url 'index' %}" style="text-decoration: none;">Home</a>
+                </li>
+
+                <li id="about-btn-div">
+                    <a href="{% url 'about' %}" style="text-decoration: none;">About</a>
+                </li>
+                
+                {% if user.is_authenticated %}
+                <li id="name-btn-div">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ user.username }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url   'bookings' %}">Bookings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </div>   
+                </li>
+                {% else %}
+                <li id="login-btn-div">
+                    <a href="{% url 'login' %}"><button id="profile1" class="btn btn-secondary">Login</button></a>
+                </li>
+                {% endif %}
+            </ul> 
+        </nav>
+        <div class="base" class="container-fluid">
+            {% block body %}
+            {% endblock %} 
+        </div>    
+
+        <footer>
+            <div>
+                <p style="margin-right: 0.3rem;">Copyright &#169; 2022 Airnexus, </p>
+                <p>  All rights reserved</p>
+            </div>
+        </footer>
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+        ></script>
+        
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"       
+        ></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>        
+
+
+        <script src="{% static 'travel/index.js' %}"></script>
+
+        <script>
+            $("#from").autocomplete({
+                source: '{% url "index" %}',
+                minLength: 1,
+                focus: function( event, ui ) {
+                    $( "#from" ).val( ui.item.label );
+                        return false;
+                },
+                select: function( event, ui ) {
+                    $( "#from" ).val( ui.item.label );
+                    $( "#from-value" ).val( ui.item.value );
+                    $( "#from-desc" ).html( ui.item.desc );
+                    return false;
+                }
+            })
+            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+               return $( "<li>" )
+               .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+               .appendTo( ul );
+            }
+            $("#to").autocomplete({
+                source: '{% url "index" %}',
+                minLength: 1,
+                focus: function( event, ui ) {
+                    $( "#to" ).val( ui.item.label );
+                        return false;
+                },
+                select: function( event, ui ) {
+                    $( "#to" ).val( ui.item.label );
+                    $( "#to-value" ).val( ui.item.value );
+                    $( "#to-desc" ).html( ui.item.desc );
+                    return false;
+                }
+            })
+            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+               return $( "<li>" )
+               .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+               .appendTo( ul );
+            }
+
+        </script>
+
+        
+
+        <script>
+            $(document).ready(function() {
+                $("body").prepend('<div id="overlay" class="ui-widget-overlay" style="z-index: 1001; display: none;"></div>');
+                $(".search").prepend('<div id="PleaseWait" class="spinner-border text-primary" style="display: none;" role="status"><span class="sr-only"></span> </div>');
+            });
+
+            $('#search-form').submit(function() {
+                var pass = true;
+                //some validations
+
+                if(pass == false){
+                    return false;
+                }
+                $("#overlay, #PleaseWait").show();
+
+                return true;
+            });
+        </script>
+        
+        
+   
+        <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
+    
+
+        
+
+    </body>
+      
+</html>

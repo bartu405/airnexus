@@ -1,0 +1,45 @@
+{% extends 'travel/layout.html' %} 
+
+{% block title %} 
+
+
+
+Login
+{% endblock   %}
+
+
+{% block body %} 
+
+
+
+<div class="forms">
+
+    <form action="" method="POST" id="login-page"> 
+        {% csrf_token %}
+
+        <h2 id="login">Login</h2>
+        
+        {% if message %}
+            <div style="color: white; margin-bottom: 1rem;">{{ message }}</div>
+        {% endif %}
+
+        <div class="form">
+            <input autofocus class="form-input" type="text" name="username" placeholder="Username">
+        </div>
+
+        <div class="form">
+            <input class="form-input" type="password" name="password" placeholder="Password">
+        </div>
+
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="/flight" />
+        {% endif %}
+        <input class="register-btn" type="submit" value="Login">
+        
+
+        <p class="already">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
+    </form>
+    
+</div>
+
+{% endblock %}

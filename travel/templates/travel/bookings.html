@@ -1,0 +1,23 @@
+{% extends 'travel/layout.html' %}
+
+{% block body %}
+    <h2>Your Bookings</h2>
+    {% if bookings %}
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <h3>Booking #{{ booking.id }}</h3>
+                    <p>Booking Time: {{ booking.booking_time }}</p>
+                    <p>Flights:</p>
+                    <ul>
+                        {% for flight in booking.flights.all %}
+                            <li>{{ flight.origin.iataCode }} - {{ flight.destination.iataCode }} ({{ flight.departure_date }} - {{ flight.arrival_date }})</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no bookings yet.</p>
+    {% endif %}
+{% endblock %}

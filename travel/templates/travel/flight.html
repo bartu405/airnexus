@@ -1,0 +1,171 @@
+{% extends "travel/layout.html" %}
+
+{% load static %}
+
+{% load bro %}
+
+
+{% block body %}
+
+
+    {% if thereAreNoFlights %}
+        <h1>No Flights</h1>
+        
+    
+        
+    {% endif %} 
+
+    <div style= "display: flex; flex-direction: column; align-items: center;" class="mouse">
+    
+    
+    {% if not thereAreNoFlights %}
+        
+        <div style= "display: flex; flex-direction: column; align-items: center;">
+
+            <h1>{{ origin }} - {{ destination }}</h1>
+            <div style="display: flex;">
+                <p style="font-size: 1.3rem; color:white">{{ depart_date|timeReverse }}</p> 
+
+                {% if not oneWay %}
+                    <p style="font-size: 1.3rem; color:white" >&#160;&#8594;&#160; {{ return_date|timeReverse }}</p>
+                {% endif %}    
+            </div>
+
+        </div>
+        
+
+        <ul >
+            {% for flight in offers %}
+                
+
+                <li class="flight" style="display: flex; flex-direction:column; justify-content:center; padding: 0;"> <!-- BAK margine -->
+                    <form action="/cs" method="POST">
+
+                        <input type="hidden" value="{{ response }}" name="response">
+                        <input type="hidden" value="{{ flight }}" name="flight">
+                        
+                        <div class="root" style="display: flex; align-items: center;">
+                        {% for i in flight.itineraries %}
+                            <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+
+
+                                    
+                                {% with i.segments|last as last %}
+                                    <p style= "margin-left: 12rem; font-weight: bold; font-size:1.4rem; margin-top: 0.3rem; ">{{ last.numberOfStops }}</p>
+                                {% endwith %}
+                                
+                                {% for a  in i.segments %} 
+
+                                    <div class="info" style="display: flex; margin: 0; padding: 0;">
+
+                                        <div style="display: flex; flex-direction: column; margin: 1rem; align-items: center; justify-content: center; width: 10rem;">
+                                            <p style="font-size: 0.9rem; margin: 0;"><strong>{{ a.airline|lower|title }}</strong></p>
+                                            
+                                            <p style="font-size: 0.9rem; margin: 0; text-align: center;">{{ a.plane|lower|title }}</p>
+                                            
+                                        </div>
+
+                                        <div style="display: flex; flex-direction: column; margin: 1rem; align-items: center;">
+
+                                            
+                                            
+                                            <p style="margin-bottom: 0; font-weight: bold;">{{ a.departure.at|slice:"11:16" }} </p>
+
+                                            <div class="tt" data-bs-placement="bottom" data-bs-toggle="tooltip" title="test" style="margin:0; padding: 0;">
+                                                <p style="margin-bottom: 0;">{{ a.departure.iataCode }}</p>
+                                            </div>   
+                                            
+                                        </div>
+
+                                        <div style="display: flex; width: 6rem; align-items: center; ">
+                                            <div style="display: flex; flex-direction: column; align-items: center;  margin: 0; padding: 0;">
+                                                
+                                                
+
+                                                <p style="margin: 0; padding:0 ; font-size: 0.9rem;" >{{ a.duration|slice:"2:"|lower|bro }}</p>
+
+                                                <div style="display: flex; margin: 0; padding: 0;">
+                                                    <p style="margin: 0;">&#8722;&#8722;&#8722;&#8722;&#8722;</p>
+                                                    <p style="margin: 0; margin-left: 0.2rem;" >&#9992;</p> 
+                                                </div>
+
+                                            </div>
+                                            
+                                            
+                                        </div>
+
+                                        <div style="display: flex; flex-direction: column; margin: 1rem; margin-right: 0; align-items: center;">
+
+                                            <p style="margin-bottom: 0;  font-weight: bold;">{{ a.arrival.at|slice:"11:16"}} </p>
+
+                                            <div class="tt" data-bs-placement="bottom" data-bs-toggle="tooltip" title="test" style="margin:0; padding: 0;">
+                                                <p style="margin-bottom: 0;">{{ a.arrival.iataCode }}</p>
+                                            </div>  
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+
+                                {% endfor %}  
+                                
+                            </div>    
+                        {% endfor %}             
+                                    
+                                    
+                                    
+                                    
+                                    <div class="price-and-checkout" style="display: flex; flex-direction:column; margin-left: 3rem; margin-right: 3rem;align-items: center;">
+                                        <p style="font-weight: bold; font-size:1.6rem ">${{ flight.price.total }}</p>
+                                        
+
+                                        <input type="submit" id="detailsButton" name="details" value="Book Now">
+                                                                    
+            
+                                        <p>Number of bookable seats: {{ flight.numberOfBookableSeats }}</p>
+                                    </div>
+                                
+                        </div>   
+                    </form>       
+                </li>
+            {% endfor %}    
+        </ul>
+    {% endif %}    
+
+        {% if next %}    
+        <nav aria-label="Post pages" class="nav" style="display: flex; flex-direction:column; align-items: center">
+            <ul class="pagination" >
+                {% if not offers.has_previous %}
+                    <li class="page-item disabled">
+                        <a class="page-link"  aria-disabled="true">Previous</a>
+                    </li>
+                    
+                {% else %} 
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ offers.previous_page_number }}" tabindex="-1" aria-disabled="false">Previous</a>
+                    </li>
+                {% endif %}
+                
+             
+    
+              <li class="page-item">
+                {% if offers.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ offers.next_page_number }}" tabindex="1" aria-disabled="false">Next</a>
+                    </li>
+                {% else %} 
+                    <li class="page-item disabled">
+                        <a class="page-link"  aria-disabled="true">Next</a>
+                    </li>
+                {% endif %}
+              </li>
+            </ul>
+    
+            
+            <p>Page {{ offers.number }} of {{ offers.paginator.num_pages }} </p>
+            
+        </nav>
+        {% endif %}
+
+    </div>
+{% endblock %}

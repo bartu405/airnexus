@@ -1,0 +1,76 @@
+{% extends "travel/layout.html" %}
+
+{% load static %}
+
+
+
+{% block body %} 
+
+
+
+    <div>
+        <h1 style="font-family: 'Cardo'; color: rgb(255, 255, 255); font-size: 3rem; margin-top: -6rem; margin-bottom: 0;">Your Journey Starts Here</h1>
+    </div>
+    
+    <div class="forms">
+
+        
+        <form class="search-type">
+            <div class="radio-div col-lg-1.2">
+                <input class="option" type="radio" checked="checked" id="roundtrip" name="search-type" value="Roundtrip">
+                <label for="roundtrip" class="label1">Roundtrip</label><br>
+            </div>
+            <div class="radio-div col-lg-1.2">
+                <input  class="option" type="radio" id="one-way" name="search-type" value="One Way">
+                <label for="one-way" class="label1">One Way</label><br>
+            </div>
+        </form>
+        
+            
+        
+        <form id="search-form"  autocomplete="off" action="/air" method="post" style="display:flex; flex-direction: column; align-items: flex-end; ">
+
+
+            <div class="form-bty">
+                <div class="bro col-lg-3.6">
+                    <label for="from" class="label">From</label>
+                    <input class="opt" id="from" placeholder="Country, city or airport" name="origin" required>
+
+                    <input style="display: none;" type = "hidden" id = "from-value">
+                    <p style="display: none ;" id = "from-desc"></p>
+                </div>
+                
+                <div class="bro col-lg-3.6">
+                    <label for="to" class="label">To</label>
+                    <input class="opt" id="to" placeholder="Country, city or airport" name="destination" required>
+
+                    <input style="display: none;" type = "hidden" id = "to-value">
+                    <p style="display: none ;" id = "to-desc"></p>
+                </div>
+                
+                <div class="bro col-lg-2.4">
+                    <label for="depart" class="label">Depart</label>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                    <input type="date" class="opt" id="departure" name="depart" required>
+                </div>
+
+                <div class="bro col-lg-2.4">
+                    <label for="return" class="label" id="return-text" >Return</label>
+                    <input type="date" class="opt" id="return" name="return" required>
+                </div>
+            </div>    
+
+            <div class="form-bty">
+                <div class="search" style="display: flex;">
+                    <input type="submit" id="flights-btn" value="List Flights"></input>
+                </div>
+            </div>
+
+        </form>
+
+     
+    </div>
+
+    
+
+{% endblock %}
