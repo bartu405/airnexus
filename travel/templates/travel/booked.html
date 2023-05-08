@@ -5,33 +5,36 @@
 {% load bro %}
 
 {% block body %}
-    <div class="forms" style="display: flex; flex-direction: column; margin-top: 1rem;">
+    <div class="forms" style="display: flex; flex-direction: column; margin-top: 2rem;">
         
         <div style="display: flex; align-items: center; flex-direction: column; margin-bottom: 0.5rem; ">  
-        <h2 style="color: #3a91ed;;">Your Flight Has Been Confirmed!</h2>
+        <h2 style="color: #3a91ed; margin-bottom: 1.6rem;  font-family: cursive;">Your Flight Has Been Confirmed!</h2>
         <p>Your PNR Number: {{ pnr_number }}</p>
-        </div>      
+            
+
+        </div>
+        <h2 style="padding-left: 32px; padding-bottom: 16px;  color: white; ">Flight Info</h2>      
         {% for itinerary in flight.itineraries %}
             {% for segment in itinerary.segments %}
-                <ul class="news" style="display: flex; flex-direction: column;">
-                    <li><p><span style="color: #b0b5b5;">From: </span>{{ segment.departure.iataCode }}</p></li>
-                    <li><p><span style="color: #b0b5b5;">To: </span>{{ segment.arrival.iataCode }}</p></li>
-                    <li><p><span style="color: #b0b5b5;">Duration: </span> {{ segment.duration|slice:"2:"|lower|bro }}</p></li>
-                    <li><p><span style="color: #b0b5b5;" >Airline: </span> {{ segment.airline|lower|title }}</p></li>
-                    <li><p><span style="color: #b0b5b5;">Aircraft: </span> {{ segment.plane|lower|title }}</p></li>
+                <ul class="news" >
+                    <li><p><span style="font-weight: bold; color: #b2baba;">From: </span>{{ segment.departure.iataCode }}</p></li>
+                    <li><p><span style="font-weight: bold; color:  #b2baba;">To: </span>{{ segment.arrival.iataCode }}</p></li>
+                    <li><p><span style="font-weight: bold; color:  #b2baba;">Duration: </span> {{ segment.duration|slice:"2:"|lower|bro }}</p></li>
+                    <li><p><span style="font-weight: bold; color:  #b2baba;" >Airline: </span> {{ segment.airline|lower|title }}</p></li>
+                    <li><p><span style="font-weight: bold; color:  #b2baba;">Aircraft: </span> {{ segment.plane|lower|title }}</p></li>
                 </ul>
             {% endfor %}
         {% endfor %}
         
-        
-        <div class="new" style="display: flex; flex-direction: column; align-items: center;">
-        <p><span style="font-weight: bold;  ">Price:</span> ${{ flight.price.total }}</p>
-        <p><span style="font-weight: bold; ">Passenger Name:</span> {{ passenger_info.name }} {{ passenger_info.last_name }}</p>
-        <p><span style="font-weight: bold; ">Birthdate:</span> {{ passenger_info.date }}</p>
-        <p><span style="font-weight: bold;  ">Email: </span>{{ passenger_info.email }}</p>
-        <p><span style="font-weight: bold;">Phone:</span> {{ passenger_info.phone }}</p>
-        <p><span style="font-weight: bold; ">Nationality:</span> {{ passenger_info.nationality }}</p>
-        <p><span style="font-size: 1.2rem;">You can view your reservations in the booking part!</span></p>
+        <h2 style="padding-left: 32px;  color: white;">Passenger Info</h2>    
+        <div class="new" style="display: inline-block; padding: 32px; padding-top: 16px;">
+        <p><span style="font-weight: bold; color:  #b2baba;  ">Price:</span> ${{ flight.price.total }}</p>
+        <p><span style="font-weight: bold; color:  #b2baba;;">Passenger Name:</span> {{ passenger_info.name }} {{ passenger_info.last_name }}</p>
+        <p><span style="font-weight: bold; color:  #b2baba;;">Birthdate:</span> {{ passenger_info.date|timeReverse }}</p>
+        <p><span style="font-weight: bold; color:  #b2baba;;">Email: </span>{{ passenger_info.email }}</p>
+        <p><span style="font-weight: bold; color:  #b2baba;;">Phone:</span> {{ passenger_info.phone }}</p>
+        <p><span style="font-weight: bold; color:  #b2baba;;">Nationality:</span> {{ passenger_info.nationality }}</p>
+        <p><span style="font-size: 1.3rem; color: #1d7ce1;">You can view your reservations in the "Bookings" part!</span></p>
         </div>
     </div>
 {% endblock %}
