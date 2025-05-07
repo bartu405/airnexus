@@ -5,7 +5,13 @@
 }
 
 
+@media (max-width: 768px) {
+    #name-btn-div, #login-btn-div {
+        margin-left: auto; /* Align dropdown to the right */
+        margin-right: -1.5rem; /* Add some right margin for spacing */
+    }
 
+}
 
 
 .ul-div {
@@ -46,17 +52,31 @@
 
 
 
+#header {
+    font-family: 'Cardo'; 
+    color: rgb(255, 255, 255); 
+    font-size: 3rem; 
+    margin-top: -6rem; 
+    margin-bottom: 0;
+}
 
 
-
-
-
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+    #header {
+        font-family: 'Cardo'; 
+        color: rgb(255, 255, 255); 
+        font-size: 1.8rem; 
+        margin-top: -4rem; 
+        margin-bottom: 0;
+    }
+}
 
 
 
 
 #profile:hover {
-    background-color: #cdcdd7; 
+    background-color: #cdcdd7;
 }
 
 label {
@@ -65,7 +85,7 @@ label {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-input, textarea, select { 
+input, textarea, select {
     outline: none;
 }
 
@@ -75,11 +95,11 @@ li {
 
 #home-btn-div {
     margin-left: auto;
-    margin-right: 2rem;    
+    margin-right: 2rem;
 }
 
 #about-btn-div {
-    margin-right: 2rem;    
+    margin-right: 2rem;
 }
 
 
@@ -89,7 +109,7 @@ li {
 .base {
     background-image: url('plane.jpg');
     background-color: rgb(184, 213, 243);
-   
+
     background-size:cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -101,55 +121,82 @@ li {
     min-height: calc(100vh -  76.139px);
 
     align-items: center;
-    
+
 }
 
 
-.bro {
-    display: flex;
-    flex-direction: column;
-   
-    
-}
 
-.form-bty {
-    display: flex;
-    align-items: flex-end;
-}
+
 
 #from {
-    border-left: solid white;
-    border-top-left-radius: 0.3rem;
-    border-bottom-left-radius: 0.3rem;
-    border-right: none;
+    border-left: solid white !important;
+    border-top-left-radius: 0.3rem !important;
+    border-bottom-left-radius: 0.3rem !important;
+    border-right: none !important;
 }
+
 #from::placeholder {
-    border-top-left-radius: 0.3rem;
-    border-bottom-left-radius: 0.3rem;
-    border-right: none;
+    border-top-left-radius: 0.3rem !important;
+    border-bottom-left-radius: 0.3rem !important;
+    border-right: none !important;
 }
 
 .autocomplete-list {
-    position: absolute;
-    list-style: none;
-    margin: 0;
-    margin-right: 1rem;
-    padding: 0;
-    width: 12rem;
-    background-color: white;
-    max-height: 200px;
-    overflow-y: auto;
-    
+    position: absolute !important;
+    list-style: none !important;
+    margin: 0 !important;
+    margin-right: 1rem !important;
+    padding: 0 !important;
+    width: 12rem !important;
+    background-color: white !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
 }
-
 
 .autocomplete-list li {
-    color: black;
-    padding: 1rem;
-    width: 3rem;
-    font-size: 0.9rem;
-    cursor: pointer;
+    color: black !important;
+    padding: 1rem !important;
+    width: 3rem !important;  /* You might want to check this width, as it seems very narrow */
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
 }
+
+.ui-autocomplete {
+    position: absolute !important;
+    list-style: none !important;
+    margin: 0 !important;
+    margin-right: 1rem !important;
+    padding: 0 !important;
+    background-color: white !important;
+    border-bottom-left-radius: 0.3rem !important; /* Adds rounded corners */
+    border-bottom-right-radius: 0.3rem !important;
+    border-top-left-radius: 0px !important;
+    max-height: 50rem !important;
+    overflow-y: auto !important;
+    z-index: 1000; /* Ensuring it's above other content */
+}
+
+.ui-autocomplete li {
+
+    color: black !important;
+    padding: 0.5rem !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    white-space: nowrap;
+}
+
+
+.ui-autocomplete a {
+    text-decoration: none !important;
+    color: black !important;
+    background-color: white !important;
+}
+
+
+.ui-menu-item:hover,.ui-menu-item:hover a, .ui-menu-item:hover li, .ui-menu-item.ui-state-focus {
+    border: 1px solid #b3b3b3; /* Slightly darker border to maintain visibility */
+}
+
 
 #to {
     border-right: none;
@@ -163,10 +210,57 @@ li {
     border-right: none;
 }
 
+.datepicker {
+    border: none; /* Remove borders from both the div and the input */
+    border-radius: 0;
+    box-shadow: none; /* Remove any shadows if present */
+
+
+}
+
+.datepicker input {
+    border: none; /* Remove borders from both the div and the input */
+    border-radius: 0;
+    box-shadow: none; /* Remove any shadows if present */
+}
+
+#return-datepicker {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    margin-left: 0.05rem;
+
+}
+
+#depart-datepicker {
+    margin-left: 0.05rem;
+
+}
+
+
+#return-datepicker input {
+    padding-left: 0.9rem;
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+
+}
+
+#depart-datepicker input {
+    padding-left: 0.9rem;
+}
+
+
+
+
+
 
 .search {
     align-self: flex-end;
     margin-top: 0.8rem;
+}
+
+.opt {
+    border: none; /* Ensures that the 'opt' class inputs also have no borders */
+    border-radius: 0;
 }
 
 .opt {
@@ -191,7 +285,7 @@ li {
 }
 
 #flights-btn:hover, #save:hover {
-    
+
     background-color: rgb(52, 52, 195);
     border: rgb(52, 52, 195) solid;
 
@@ -244,6 +338,7 @@ li {
     background-color: #3a91ed;
     border: none;
     cursor: pointer;
+    border-radius: 0.2rem;
 }
 
 
@@ -283,7 +378,7 @@ li {
 .radio-div > label {
     margin-bottom: 0;
     cursor: pointer;
-}  
+}
 
 .option {
 
@@ -293,7 +388,7 @@ li {
     color: #007bff;
     border: 6px solid rgb(33, 28, 28);
     cursor: pointer;
-}     
+}
 
 .radio-div {
     display: flex;
@@ -307,20 +402,10 @@ li {
     margin-left: 1rem;
 }
 
-.forms {
-    display: flex; 
-    flex-direction: column;
-    background-color: rgba(14, 15, 44, 0.69);
-
-    padding: 1.8rem;
-    margin-bottom: 3.2rem;
-
-    border-radius: 0.6rem;
-}
 
 .label1{
     font-size: 1rem;
-    
+
 }
 
 #bty {
@@ -363,11 +448,11 @@ li {
 
 .flight p {
     font-size: 1.3rem;
-    
+
 }
 
 .mouse h1 {
-    
+
     color: white;
     font-family: cursive;
     margin: 2rem;
@@ -463,7 +548,7 @@ footer p {
 
 .cs p {
     font-size: 2rem;
-    
+
 }
 
 .csx p {
@@ -527,3 +612,210 @@ footer p {
     align-items: center;
     justify-content: center;
 }
+
+/* Targeting the first option within the select element */
+#country option:first-child {
+    color: lightgray
+}
+
+/* Style the select element when the first option (placeholder) is selected */
+#country:not(:focus):invalid {
+    color: gray;
+}
+
+/* Style the options to be black, so they look normal when the dropdown is open */
+#country option {
+    color: black;
+}
+
+/* Style the date input when it has no value */
+input[type="date"]:not(:focus):required:invalid {
+    color: grey;
+}
+
+/* Style the date input text to be black when the user interacts with it or selects a date */
+input[type="date"]:focus,
+input[type="date"]:valid {
+    color: black;
+}
+
+/* Style the datepicker input when it has no value */
+input[type="text"].opt:not(:focus):required:invalid {
+    color: grey;
+}
+
+/* Style the datepicker input text to be black when the user interacts with it or selects a date */
+input[type="text"].opt:focus,
+input[type="text"].opt:valid {
+    color: black;
+}
+
+
+
+
+
+.ui-menu-item:not(:last-child) { /* Adds a border to all but the last item */
+    border-bottom: 1px solid #ccc; /* Change color as needed */
+}
+
+
+/* Spinner */
+
+.input-wrapper {
+    position: relative;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+
+/* Spinner için parenttaki style lar */
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(14, 15, 44, 0.69);
+
+    padding: 1.8rem;
+    margin-bottom: 3.2rem;
+
+    border-radius: 0.6rem;
+}
+
+#search-form {
+    display:flex; flex-direction: column; align-items: flex-end;
+}
+
+@media (max-width: 767px) {
+    .forms {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(14, 15, 44, 0.69);
+        width: 90%; /* Use a percentage-based width for responsiveness */
+        max-width: 22rem; /* Set a maximum width to maintain consistency */
+        padding: 1.8rem;
+        margin-bottom: 3.2rem;
+        border-radius: 0.6rem;
+    }
+
+    
+    #search-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%; /* Ensure the form takes full width of the parent */
+    }
+    
+    .form-bty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Ensure it takes full width */
+    }
+    
+    .search-type {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem; /* Add some spacing for better layout */
+    }
+    
+    .radio-div {
+        margin: 0 1rem; /* Adjust spacing between radio buttons */
+    }
+    
+    .bro {
+        width: 100%;
+        margin-bottom: 1rem; /* Add spacing between input groups */
+    }
+    
+    .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .opt, .datepicker input {
+        width: 100%;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+    
+    #flights-btn {
+        width: 100%;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .search {
+        align-self: center;
+    }
+
+    /* bordaki .opt datepickerların radius olmasını sağladı niye bilmiyorum */
+    #from, #to, .opt {
+        border-radius: 0.3rem !important;
+    }
+
+    /* Uçak logosu , important yapmazsano olmuyo neden bilmiyorum*/
+    #logo {
+        display: none !important;
+    }
+    
+}
+
+#logo {
+
+    margin-right: 0.2rem; transform: rotate(-50deg); display: inline-block;
+}
+
+.form-bty {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+    .form-bty {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+    }
+}
+
+.bro {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+

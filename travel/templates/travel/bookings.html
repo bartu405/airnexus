@@ -1,23 +1,53 @@
 {% extends 'travel/layout.html' %}
 
+{% load bro %}
+
 {% block body %}
-    <h2>Your Bookings</h2>
-    {% if bookings %}
-        <ul>
-            {% for booking in bookings %}
-                <li>
-                    <h3>Booking #{{ booking.id }}</h3>
-                    <p>Booking Time: {{ booking.booking_time }}</p>
-                    <p>Flights:</p>
-                    <ul>
+<h1 style="color: white; font-family: cursive; padding-bottom: 3.1rem; padding-top: 1rem;">My Bookings</h2>
+
+{% if bookings %}
+    <div class="bookings-list">
+        {% for booking in bookings %}
+            <div class="forms">
+                <p>
+                    <span style="color: #3a91ed; font-family: cursive;">PNR:</span>
+                    <span style="color: white;">{{ booking.pnr_number }}</span>
+                </p>
+                
+                <p>
+                    <span style="color: #3a91ed; font-family: cursive;">Booking Time:</span>
+                    <span style="color: white;">{{ booking.booking_time }}</span>
+                </p>
+                
+                <p style="color: #3a91ed; font-family: cursive;">Depart:</p>
+                <ul style="color: white;">
+                    {% for flight in booking.flights.all %}
+                        {% if flight.flight_type == "departure" %}
+                            <li>
+                                {{ flight.origin.iataCode }} to {{ flight.destination.iataCode }} - Departure: {{ flight.departure_date|timeReverseBookings }} - Arrival: {{ flight.arrival_date|timeReverseBookings }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+
+                {% if booking.has_return_flights %}
+                    <p style="color: #3a91ed; font-family: cursive;">Return:</p>
+                    <ul style="color: white;">
                         {% for flight in booking.flights.all %}
-                            <li>{{ flight.origin.iataCode }} - {{ flight.destination.iataCode }} ({{ flight.departure_date }} - {{ flight.arrival_date }})</li>
+                            {% if flight.flight_type == "return" %}
+                                <li>
+                                    {{ flight.origin.iataCode }} to {{ flight.destination.iataCode }} - Departure: {{ flight.departure_date|timeReverseBookings }} - Arrival: {{ flight.arrival_date|timeReverseBookings }}
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have no bookings yet.</p>
-    {% endif %}
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have no bookings.</p>
+{% endif %}
+
 {% endblock %}

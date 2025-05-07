@@ -22,7 +22,8 @@
         
         <div style= "display: flex; flex-direction: column; align-items: center;">
 
-            <h1>{{ origin }} - {{ destination }}</h1>
+            <h1 style="    color: #ffffff;
+            font-family: cursive;">{{ origin }} - {{ destination }}</h1>
             <div style="display: flex;">
                 <p style="font-size: 1.3rem; color:white">{{ depart_date|timeReverse }}</p> 
 
@@ -56,7 +57,7 @@
                                 
                                 {% for a  in i.segments %} 
 
-                                    <div class="info" style="display: flex; margin: 0; padding: 0;">
+                                    <div class="info" style="display: flex; margin: 0; padding: 0; margin-top: -1rem;">
 
                                         <div style="display: flex; flex-direction: column; margin: 1rem; align-items: center; justify-content: center; width: 10rem;">
                                             <p style="font-size: 0.9rem; margin: 0;"><strong>{{ a.airline|lower|title }}</strong></p>
@@ -115,15 +116,21 @@
                                     
                                     
                                     
-                                    <div class="price-and-checkout" style="display: flex; flex-direction:column; margin-left: 3rem; margin-right: 3rem;align-items: center;">
-                                        <p style="font-weight: bold; font-size:1.6rem ">${{ flight.price.total }}</p>
-                                        
-
-                                        <input type="submit" id="detailsButton" name="details" value="Book Now">
-                                                                    
-            
-                                        <p>Number of bookable seats: {{ flight.numberOfBookableSeats }}</p>
-                                    </div>
+                        <div class="price-and-checkout" style="display: flex; flex-direction:column; margin-left: 3rem; margin-right: 3rem; padding-top: 3.6rem; align-items: center;">
+                            <p style="font-weight: bold; font-size:1.6rem">${{ flight.price.total }}</p>
+                            <input type="submit" id="detailsButton" name="details" value="Book Now" onclick="location.href='/login?flight={{ flight|urlencode }}'">
+                            
+                            
+                            <!-- Display seats remaining if below the threshold -->
+                            {% if flight.numberOfBookableSeats == 1 %}
+                                <p>{{ flight.numberOfBookableSeats }} Seat Remaining!</p>
+                            {% elif flight.numberOfBookableSeats > 0 and flight.numberOfBookableSeats <= 5 %}
+                                <p>{{ flight.numberOfBookableSeats }} Seats Remaining!</p>
+                            {% else %}
+                                <p style="visibility: hidden;">{{ flight.numberOfBookableSeats }} Seats Remaining!</p>
+                            {% endif %}
+                        </div>
+                        
                                 
                         </div>   
                     </form>       
@@ -162,7 +169,7 @@
             </ul>
     
             
-            <p>Page {{ offers.number }} of {{ offers.paginator.num_pages }} </p>
+            <p style="font-size: large;">Page {{ offers.number }} of {{ offers.paginator.num_pages }} </p>
             
         </nav>
         {% endif %}

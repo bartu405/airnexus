@@ -268,7 +268,9 @@
                     <input class="opt" id="last-name" placeholder="Last Name" name="last-name" required>
 
                     <label for="date" class="label">Date Of Birth</label>
-                    <input type="date"  class="opt" id="date" placeholder="Date Of Birth" name="date" required>
+                    <div class="datepicker" id="date-datepicker">
+                        <input type="text" class="opt" id="date" name="date" required placeholder="Select Date">
+                    </div>
 
                     <label for="email" class="label">Email</label>
                     <input class="opt" id="email" placeholder="Email" name="email" required>
@@ -281,6 +283,7 @@
                     margin-bottom: 1.2rem;
                     min-height: 2.6rem;
                     border-radius: 0.3rem;" id="country" name="nationality" class="form-control opt" required>
+                        <option value="" selected disabled>Nationality</option>
                         <option value="Afghanistan">Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
                         <option value="Albania">Albania</option>
@@ -544,8 +547,7 @@
             
             <input type="submit" form="bro" id="detailsButton" name="details" value="Confirm Booking" style="width: 16rem;">
              
-            
-            <p>Number of bookable seats: {{ flight.numberOfBookableSeats }}</p>
+        
         </div>
 
         

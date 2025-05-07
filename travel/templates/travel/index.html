@@ -9,7 +9,7 @@
 
 
     <div>
-        <h1 style="font-family: 'Cardo'; color: rgb(255, 255, 255); font-size: 3rem; margin-top: -6rem; margin-bottom: 0;">Your Journey Starts Here</h1>
+        <h1 id="header">Your Journey Starts Here</h1>
     </div>
     
     <div class="forms">
@@ -28,37 +28,53 @@
         
             
         
-        <form id="search-form"  autocomplete="off" action="/air" method="post" style="display:flex; flex-direction: column; align-items: flex-end; ">
+        <form id="search-form"  autocomplete="off" action="/air" method="post">
 
 
             <div class="form-bty">
+                
                 <div class="bro col-lg-3.6">
                     <label for="from" class="label">From</label>
-                    <input class="opt" id="from" placeholder="Country, city or airport" name="origin" required>
-
-                    <input style="display: none;" type = "hidden" id = "from-value">
-                    <p style="display: none ;" id = "from-desc"></p>
+                    <div class="input-wrapper">
+                        <input class="opt" id="from" placeholder="Country, city or airport" name="origin" required>
+                        <span id="from-loader" class="loader hidden"></span>
+                    </div>
+                    <input style="display: none;" type="hidden" id="from-value">
+                    <p style="display: none;" id="from-desc"></p>
                 </div>
                 
                 <div class="bro col-lg-3.6">
                     <label for="to" class="label">To</label>
-                    <input class="opt" id="to" placeholder="Country, city or airport" name="destination" required>
+                    <div class="input-wrapper">
+                        <input class="opt" id="to" placeholder="Country, city or airport" name="destination" required>
+                        <span id="to-loader" class="loader hidden"></span>
+                    </div>
+                    <input style="display: none;" type="hidden" id="to-value">
+                    <p style="display: none;" id="to-desc"></p>
+                </div>
+                
 
-                    <input style="display: none;" type = "hidden" id = "to-value">
-                    <p style="display: none ;" id = "to-desc"></p>
+
+
+                <div class="bro col-lg-2.4">
+                    <label for="departure" class="label">Depart</label>
+                    <div class="datepicker" id="depart-datepicker">
+                        <input type="text" class="opt" id="departure" name="depart" required placeholder="Select Date">
+                    </div>
                 </div>
                 
                 <div class="bro col-lg-2.4">
-                    <label for="depart" class="label">Depart</label>
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                    <input type="date" class="opt" id="departure" name="depart" required>
+                    <label for="return" class="label" id="return-text">Return</label>
+                    <div class="datepicker" id="return-datepicker">
+                        <input type="text" class="opt" id="return" name="return" required placeholder="Select Date">
+                    </div>
                 </div>
 
-                <div class="bro col-lg-2.4">
-                    <label for="return" class="label" id="return-text" >Return</label>
-                    <input type="date" class="opt" id="return" name="return" required>
-                </div>
-            </div>    
+
+                
+            </div>
+            
+            
 
             <div class="form-bty">
                 <div class="search" style="display: flex;">
@@ -70,6 +86,7 @@
 
      
     </div>
+
 
     
 
